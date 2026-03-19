@@ -1,0 +1,226 @@
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #050505;
+  --card: #0f0f0f;
+  --accent: #d4af37; /* Золото */
+  --accent-light: #f1e5ac;
+  --text: #ffffff;
+  --glass: rgba(255, 255, 255, 0.03);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+}
+
+.app-container {
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(15px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 3px;
+  font-size: 1.2rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-btn {
+  background: var(--glass);
+  border: 1px solid var(--accent);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.cart-btn:hover {
+  background: var(--accent);
+  color: black;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: radial-gradient(circle at center, #1a1508 0%, transparent 70%);
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 800;
+  background: linear-gradient(to right, #fff, var(--accent), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+/* Grid */
+.menu-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.card-desc {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.price span {
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.buy-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  background: var(--accent);
+  color: black;
+}
+
+/* Modal Корзины */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #111;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 30px;
+  padding: 40px;
+  border: 1px solid var(--accent);
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px; right: 20px;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #222;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--accent);
+  border: none;
+  border-radius: 15px;
+  font-weight: 800;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 3rem; }
+  .navbar { padding: 15px 5%; }
+}
