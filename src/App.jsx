@@ -1,3 +1,4 @@
+import LandingPage from "./components/LandingPage"
 import React, { useState } from 'react';
 import './App.css';
 import { ChefHat, ShoppingCart, Trash2, X, Star } from 'lucide-react';
@@ -121,9 +122,7 @@ function App() {
         </div>
       )}
 
-      <footer style={{ textAlign: 'center', padding: '50px', opacity: 0.3, fontSize: '0.8rem' }}>
-        ARGEN RESTO — BISHKEK 2026
-      </footer>
+      <LandingPage />
     </div>
   );
 }
