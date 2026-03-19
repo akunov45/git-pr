@@ -1,0 +1,101 @@
+// Переменные для легкой настройки цветов
+$bg-color: #f8f3eb; // Нежный кремовый фон
+$text-color: #333;
+$accent-color: #d4af37; // Золотистый для акцентов
+$font-family: 'Playfair Display', serif; 
+
+.bakery-header {
+  background-color: $bg-color;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-family: $font-family;
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .nav-group {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+
+    &:first-child {
+      justify-content: flex-end;
+      padding-right: 50px;
+    }
+
+    &:last-child {
+      justify-content: flex-start;
+      padding-left: 50px;
+    }
+
+    li {
+      margin: 0 15px;
+
+      a {
+        text-decoration: none;
+        color: $text-color;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $accent-color;
+        }
+      }
+    }
+  }
+
+  .logo-wrapper {
+    position: relative;
+    z-index: 10;
+
+    .logo-circle {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 2px solid #eee;
+      
+      // Декоративная рамка как на картинке
+      &::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border-radius: 50%;
+        border: 1px solid $accent-color;
+        opacity: 0.3;
+      }
+
+      img {
+        width: 70%;
+        height: auto;
+      }
+    }
+  }
+}
+
+// Адаптив для мобилок
+@media (max-width: 768px) {
+  .nav-group {
+    display: none; // Обычно на мобильных скрывают в бургер-меню
+  }
+  .nav-container {
+    justify-content: center;
+  }
+}

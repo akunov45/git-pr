@@ -1,11 +1,13 @@
 import styles from   './App.module.scss'
 // import './App.scss'
 import HomePage from './pages/HomePage'
+import Header from './components/Header'
 
 const App = () => {
   return (
     <div>
-      <HomePage />
+      <Header />
+      {/* <HomePage /> */}
       <div className={styles.header}>
         <span className={styles.span}>Header </span>
       </div>
