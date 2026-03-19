@@ -1,79 +1,110 @@
-import LandingPage from "./components/LandingPage"
 import React, { useState } from 'react';
-import './App.css';
-import { ChefHat, ShoppingCart, Trash2, X, Star } from 'lucide-react';
-import styles from './App.module.scss'
-// import './App.scss'
-import HomePage from './pages/HomePage'
-import Header from './components/Header'
+import { ChefHat, ShoppingCart, Trash2, X, Star, MapPin } from 'lucide-react';
+import styles from './App.module.scss'; // Убедись, что этот файл существует
+import './App.css'; 
 
-const MENU = [
-  { id: 1, name: "ЧЕРНАЯ ПАСТА", price: 900, desc: "Премиальные чернила каракатицы и тигровые креветки.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800" },
-  { id: 2, name: "БОЛОНЬЕЗЕ", price: 450, desc: "Традиционное рагу из мраморной говядины с томатами.", img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800" },
-  { id: 3, name: "КАРБОНАРА", price: 480, desc: "Сливочный соус, выдержанный сыр и хрустящий бекон.", img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=800" },
+const DATA = [
+  { id: 1, cat: 'Бургеры', name: 'Z-Burger Premium', price: 420, weight: '400г', hit: true, img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500' },
+  { id: 2, cat: 'Бургеры', name: 'Double Cheese', price: 350, weight: '350г', hit: false, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
+  { id: 4, cat: 'Шаурма', name: 'ЭкиДос Классик', price: 220, weight: '450г', hit: true, img: 'https://avatars.mds.yandex.net/get-altay/15278128/2a0000019758a0cd9c07b9ceba0408bc6d85/orig' },
+  { id: 7, cat: 'Снэки', name: 'Фри по-бельгийски', price: 150, weight: '180г', hit: false, img: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=500' },
+  { id: 13, cat: 'Напитки', name: 'Лимонад Базилик', price: 180, weight: '400мл', hit: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500' },
+  // Добавь остальные товары сюда в таком же формате
 ];
 
+const CATS = ['Все', 'Бургеры', 'Шаурма', 'Снэки', 'Напитки'];
+
 function App() {
+  const [activeCat, setActiveCat] = useState('Все');
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Добавить в корзину
+  // Фильтрация товаров
+  const filtered = activeCat === 'Все' ? DATA : DATA.filter(i => i.cat === activeCat);
+
+  // Функции корзины
   const addToCart = (item) => {
     setCart([...cart, { ...item, cartId: Date.now() }]);
   };
 
-  // Удалить из корзины
   const removeFromCart = (cartId) => {
     setCart(cart.filter(item => item.cartId !== cartId));
   };
 
-  // Общая сумма
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
-
 
   return (
     <div className="app-container">
-      <Header />
-      {/* Навигация */}
-      <nav className="navbar">
-        <div className="logo">
-          <ChefHat size={32} />
-          АРГЕН РЕСТО
+      {/* Шапка */}
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <ChefHat size={32} /> EKIDOS<span>PRO</span>
+        </div>
+        <div className={styles.location}>
+          <MapPin size={18} /> Бишкек, центр
         </div>
         <button className="cart-btn" onClick={() => setIsCartOpen(true)}>
           <ShoppingCart size={20} />
-          {cart.length > 0 && <span>{cart.length}</span>}
+          {cart.length > 0 && <span className="cart-badge">{cart.length}</span>}
           <span>Корзина</span>
         </button>
-      </nav>
+      </header>
 
-      {/* Hero */}
-      <header className="hero">
+      {/* Hero секция */}
+      <section className="hero">
         <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginBottom: '15px' }}>
           {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="#d4af37" color="#d4af37" />)}
         </div>
         <h1>АРГЕН РЕСТО</h1>
-        <p style={{ letterSpacing: '4px', opacity: 0.7 }}>ИТАЛЬЯНСКИЕ ТРАДИЦИИ В БИШКЕКЕ</p>
-      </header>
+        <p style={{ letterSpacing: '4px', opacity: 0.7 }}>ЛУЧШИЙ ВКУС В ГОРОДЕ</p>
+      </section>
 
-      {/* Сетка меню */}
-      <main className="menu-grid">
-        {MENU.map((item) => (
-          <div key={item.id} className="card">
-            <img src={item.img} alt={item.name} className="card-img" />
-            <div className="card-body">
-              <h3 className="card-title">{item.name}</h3>
-              <p className="card-desc">{item.desc}</p>
-              <div className="card-footer">
-                <div className="price">{item.price} <span>сом</span></div>
-                <button className="buy-btn" onClick={() => addToCart(item)}>
-                  Заказать
-                </button>
+      {/* Категории */}
+      <div className={styles.categories}>
+        {CATS.map(c => (
+          <div 
+            key={c} 
+            className={`${styles.catItem} ${activeCat === c ? styles.active : ''}`}
+            onClick={() => setActiveCat(c)}
+          >
+            {c}
+          </div>
+        ))}
+      </div>
+
+      {/* Сетка товаров */}
+      <main className={styles.grid}>
+        {filtered.map(item => (
+          <div key={item.id} className={`${styles.card} ${item.hit ? styles.hitCard : ''}`}>
+            {item.hit && <div className={styles.hitBadge}>ХИТ</div>}
+            <div className={styles.imgBox}>
+              <img src={item.img} alt={item.name} loading="lazy" />
+            </div>
+            <div className={styles.info}>
+              <h3>{item.name}</h3>
+              <div className={styles.meta}>
+                <span>{item.cat}</span>
+                <span>{item.weight}</span>
+              </div>
+              <div className={styles.priceRow}>
+                <div className={styles.price}>{item.price} <span>сом</span></div>
+                <button className={styles.buyBtn} onClick={() => addToCart(item)}>+</button>
               </div>
             </div>
           </div>
         ))}
       </main>
+
+      {/* Плавающая кнопка корзины (снизу) */}
+      {cart.length > 0 && (
+        <div className={styles.cartFloating} onClick={() => setIsCartOpen(true)}>
+          <div className={styles.cartContent}>
+            <span className={styles.icon}>🛒</span>
+            <span>В корзине: {cart.length} товаров</span>
+          </div>
+          <button className={styles.checkoutBtn}>{totalPrice} сом</button>
+        </div>
+      )}
 
       {/* Модальное окно корзины */}
       {isCartOpen && (
@@ -109,7 +140,7 @@ function App() {
                     <span>{totalPrice} сом</span>
                   </div>
                   <button className="checkout-btn" onClick={() => {
-                    alert('Заказ принят! Арген Ресто готовит вашу пасту.');
+                    alert('Заказ принят! Мы уже начинаем готовить.');
                     setCart([]);
                     setIsCartOpen(false);
                   }}>
@@ -121,8 +152,6 @@ function App() {
           </div>
         </div>
       )}
-
-      <LandingPage />
     </div>
   );
 }
