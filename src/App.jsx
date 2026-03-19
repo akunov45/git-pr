@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 import { ChefHat, ShoppingCart, Trash2, X, Star } from 'lucide-react';
+import styles from './App.module.scss'
+// import './App.scss'
+import HomePage from './pages/HomePage'
+import Header from './components/Header'
 
 const MENU = [
   { id: 1, name: "ЧЕРНАЯ ПАСТА", price: 900, desc: "Премиальные чернила каракатицы и тигровые креветки.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800" },
@@ -25,8 +29,10 @@ function App() {
   // Общая сумма
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
+
   return (
     <div className="app-container">
+      <Header />
       {/* Навигация */}
       <nav className="navbar">
         <div className="logo">
@@ -43,7 +49,7 @@ function App() {
       {/* Hero */}
       <header className="hero">
         <div style={{ display: 'flex', justifyContent: 'center', gap: '5px', marginBottom: '15px' }}>
-          {[1,2,3,4,5].map(i => <Star key={i} size={16} fill="#d4af37" color="#d4af37" />)}
+          {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="#d4af37" color="#d4af37" />)}
         </div>
         <h1>АРГЕН РЕСТО</h1>
         <p style={{ letterSpacing: '4px', opacity: 0.7 }}>ИТАЛЬЯНСКИЕ ТРАДИЦИИ В БИШКЕКЕ</p>
@@ -74,7 +80,7 @@ function App() {
           <div className="modal-content">
             <X className="close-modal" onClick={() => setIsCartOpen(false)} />
             <h2 style={{ marginBottom: '25px', textAlign: 'center' }}>ВАШ ЗАКАЗ</h2>
-            
+
             {cart.length === 0 ? (
               <p style={{ textAlign: 'center', color: '#666' }}>Корзина пока пуста...</p>
             ) : (
@@ -86,16 +92,16 @@ function App() {
                         <div style={{ fontWeight: 'bold' }}>{item.name}</div>
                         <div style={{ color: '#d4af37' }}>{item.price} сом</div>
                       </div>
-                      <Trash2 
-                        size={18} 
-                        color="#ff4444" 
-                        style={{ cursor: 'pointer' }} 
+                      <Trash2
+                        size={18}
+                        color="#ff4444"
+                        style={{ cursor: 'pointer' }}
                         onClick={() => removeFromCart(item.cartId)}
                       />
                     </div>
                   ))}
                 </div>
-                
+
                 <div style={{ marginTop: '30px', borderTop: '2px solid #222', paddingTop: '20px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.4rem', fontWeight: '800' }}>
                     <span>ИТОГО:</span>
